@@ -13,15 +13,22 @@ func BuildExcel(list ExcelSheetList) {
 	for _, sheet := range list.ExcelSheets {
 		f.NewSheet(sheet.Name)
 	}
-	count := 0
+
 	for _, sheet := range list.ExcelSheets {
-		count++
-		countInString := fmt.Sprint(count)
-		rowData := &sheet.Data
-		if err := f.SetSheetRow(sheet.Name, "A"+countInString, &rowData); err != nil {
-			fmt.Println(err)
-			return
+
+		rowDataRow := &sheet.Data
+		count := 0
+		for _, row := range *rowDataRow {
+			rowData := row.Data
+			count++
+			countInString := fmt.Sprint(count)
+			cell := "A" + countInString
+			if err := f.SetSheetRow(sheet.Name, cell, &rowData); err != nil {
+				fmt.Println(err)
+				return
+			}
 		}
+		count = 0
 	}
 
 	f.SetActiveSheet(0)
