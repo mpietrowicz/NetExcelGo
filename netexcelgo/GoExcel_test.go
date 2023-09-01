@@ -37,11 +37,11 @@ func TestBuildExcel(t *testing.T) {
 	for i := 3; i < 100; i++ {
 	}
 
-	BuildExcel(testlist)
+	BuildExcel(&testlist)
 
 	if _, err := os.Stat(testlist.FileName + ".xlsx"); err == nil {
 		t.Logf("File exists\n")
-		os.Remove(testlist.FileName + ".xlsx")
+		//os.Remove(testlist.FileName + ".xlsx")
 	} else {
 		t.Errorf("File does not exist\n")
 	}
